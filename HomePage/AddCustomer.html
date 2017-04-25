@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--添加客户-->
+    <title>骑程无忧</title>
+    <script src="../Quote/js/angular.js"></script>
+    <script src="../Quote/js/angular-ui-router.js"></script>
+    <script src="../Quote/js/jquery.js"></script>
+    <script src="../Quote/js/url.js"></script>
+    <script src="../Quote/js/ichart.1.2.1.min.js"></script>
+    <link rel="stylesheet" href="../Quote/css/OverallSituation.css">
+</head>
+<body ng-app="myApp">
+<!--********************首页***********************-->
+<div id="Home" style="display: block" ng-controller="homeController">
+    <nav>
+        <div id="wrap">
+            <div id="wrapFl">
+                <!--<a href="">-->
+                    <!--<img src="../Quote/img/home/logo.png" alt="">-->
+                <!--</a>-->
+                <div id="wrapFl_l">
+                    <a href="">
+                        <img src="../Quote/img/home/logo.png" alt="">
+                    </a>
+                </div>
+                <div id="wrapFr_Fl">
+                    <a ui-sref="First.one" class="wrapFr_Fl_home" id="First">首页</a>
+                    <a ui-sref="businessManage.staffList" class="wrapFr_Fl_home" id="businessManage">业务管理</a>
+                    <a ui-sref="marketManage.partList" class="wrapFr_Fl_home"  id="marketManage">营销管理</a>
+                    <a ui-sref="operation.masterMap" class="wrapFr_Fl_home" id="operation">运营统计</a>
+                    <a ui-sref="userManage.userList" class="wrapFr_Fl_home" id="userManage">用户管理</a>
+                    <a ui-sref="systemManage.systemSet" class="wrapFr_Fl_home" id="systemManage">系统管理</a>
+                    <a ui-sref="basicData.partList1" class="wrapFr_Fl_home" id="basicData">基础资料</a>
+                    <a ui-sref="callCenter.allCenter" class="wrapFr_Fl_home" id="callCenter">客服中心</a>
+                </div>
+            </div>
+            <div id="wrapFr">
+                <div id="wrapFr_F">
+                    <!--<div id="wrapFr_Fl">-->
+                        <!--<a href="" class="wrapFr_Fl_home on">首页</a>-->
+                        <!--<a href="" class="wrapFr_Fl_home">业务管理</a>-->
+                        <!--<a href="" class="wrapFr_Fl_home">营销管理</a>-->
+                        <!--<a href="" class="wrapFr_Fl_home">运营统计</a>-->
+                        <!--<a href="" class="wrapFr_Fl_home">用户管理</a>-->
+                        <!--<a href="" class="wrapFr_Fl_home">系统管理</a>-->
+                        <!--<a href="" class="wrapFr_Fl_home">基础资料</a>-->
+                        <!--<a href="" class="wrapFr_Fl_home">客服中心</a>-->
+                    <!--</div>-->
+                    <div id="wrapFr_Fr">
+                        <img src="../Quote/img/home/nav_menu_tc.png" alt="" id="closeImg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!--*******************隐藏的关闭页面的弹窗*******************-->
+
+    <div ui-view="" id="firstView"></div>
+    <div class="mark">
+        <div id="hiddleClose">
+            <div id="hiddleCloseTop">
+                <div id="hiddleCloseTop_L">退出登录</div>
+                <div id="hiddleCloseTop_R">X</div>
+            </div>
+            <div id="hiddleCloseMid">退出后台系统后将无法操作，确认退出？</div>
+            <div id="hiddleCloseBottom">
+                <span class="spanCode">确定</span><span class="spanCode">取消</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--/*********************************首页************************************/-->
+<script>
+    $(function () {
+        var ulList = $(".ulList");
+        var nav = $("nav");
+        var wrap_MFl_img = $(".wrap_MFl");
+//        var wrap_MFl_ul_top = $(".wrap_MFl_ul_top");
+        var height = document.body.clientHeight - 336;
+        $(".warp_MFl_ul_bottom").css("height","height");
+//        warp_MFl_ul_bottom[0].style.height = document.body.clientHeight - 366 +"px";
+        $(".wrapFr_Fl_home").on("click",function () {
+            $(this).addClass("on").siblings().removeClass("on");
+        });
+//        $(".ulListOn").on("click",function () {
+//            $(this).addClass("on").parent().siblings().find("a").removeClass("on");
+//        });
+        $("#closeImg").on("click",function () {
+            $(".mark").css("display","block");
+            $("#hiddleClose").css("display","block");
+        });
+        $("#hiddleCloseTop_R").on("click",function () {
+            $(".mark").css("display","none");
+            $("#hiddleClose").css("display","none");
+        });
+        var spanCode = document.getElementsByClassName("spanCode");
+        spanCode[1].onclick = function () {
+            $(".mark").css("display","none");
+            $("#hiddleClose").css("display","none");
+        };
+        spanCode[0].onclick = function () {
+            $(".mark1").css("display","none");
+            $("#hiddleClose").css("display","none");
+            window.location = "../LoginInterface/logIn.html"
+        };
+    })
+</script>
+<script src="400Paidan/controllerOne.js"></script>
+<script src="../UserManagement/userManage/controllerUserManage.js"></script>
+<script src="../UserManagement/userList/controllerUserList.js"></script>
+<script src="../OperationStatistics/NewIncreased/controllerNewIncreased.js"></script>
+<script src="../OperationStatistics/Areaaddrate/controllerareaAddrate.js"></script>
+<script src="../OperationStatistics/masterRank/controllerMasterRank.js"></script>
+<script src="../BusinessManagement/controllerStaffList.js"></script>
+<script src="../MarketManagement/partManage/controllerPartList.js"></script>
+<script src="../MarketManagement/advanceOrder/controlleradvanceOrder.js"></script>
+<script src="../MarketManagement/historyOrder/controllerhistoryOrder.js"></script>
+<script src="../MarketManagement/repairOrder/controllerRepairOrder.js"></script>
+<script src="../MarketManagement/confirm/controllerconfirm.js"></script>
+<script src="../MarketManagement/historyApplyfor/controllerhistoryApplyfor.js"></script>
+<script src="../OperationStatistics/masterMap/controllerMasterMap.js"></script>
+<script src="../OperationStatistics/mounthRate/controllerMounthRate.js"></script>
+<script src="../OperationStatistics/manageDaily/controllerManageDaily.js"></script>
+<script src="../OperationStatistics/masterDaily/controllerMasterDaily.js"></script>
+<script src="../OperationStatistics/userDaily/controllerUserDaily.js"></script>
+<script src="../SystemManagement/changePassword/controllerChangePassword.js"></script>
+<script src="../SystemManagement/payManage/controllerPayManage.js"></script>
+<script src="../SystemManagement/roleSet/controllerRoleSet.js"></script>
+<script src="../SystemManagement/systemSet/controllerSystemSet.js"></script>
+<script src="../SystemManagement/systemType/controllerSystemType.js"></script>
+<script src="../SystemManagement/weixinPay/controllerWeixinPay.js"></script>
+<script src="../BasicData/partManage/controllerPartList.js"></script>
+<script src="../BasicData/basicDataBuy/controllerBasicDataBuy.js"></script>
+<script src="../BasicData/basicDataStock/controllerBasicDataStock.js"></script>
+<script src="../CallCenter/allCenter/controllerAllCenter.js"></script>
+<script src="../CallCenter/waitOrder/controllerWaitOrder.js"></script>
+<script src="../CallCenter/overTimeOrder/controllerOverTimeOrder.js"></script>
+<script src="../CallCenter/teacherReassignment/controllerTeacherReassignment.js"></script>
+<script src="../CallCenter/historyOrder/controllerHistoryOrder.js"></script>
+<script src="../CallCenter/serviceOrder/controllerServiceOrder.js"></script>
+<script src="../CallCenter/returnVisit/controllerReturnVisit.js"></script>
+
+<script src="../Quote/js/App.js"></script>
+</body>
+</html>

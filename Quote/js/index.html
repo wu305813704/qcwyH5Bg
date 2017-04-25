@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="angular.js"></script>
+    <script src="angular-ui-router.js"></script>
+    <style></style>
+</head>
+<body>
+<div ng-app="myApp" >
+    <a ui-sref="parent">点我显示父view内容</a>
+    <a ui-sref="parent.child">点我显示父view与子view内容</a>
+    <div ui-view></div> <!-- 父View -->
+</div>
+<script>
+    var app = angular.module('myApp', ['ui.router']);
+    app.config(["$stateProvider",  function ($stateProvider) {
+        $stateProvider
+//            .state("home", {
+//                url: '/',
+//                template:'<div>开始展示页面</div>'
+//            })
+            .state("parent", {//父路由
+                url: '/',
+                template:'<div>parent'
+                +'<div ui-view><div>'// 子View
+                +'</div>'
+            })
+            .state("parent.child", {//子路由
+                url: '',
+                template:'<div>child</div>'
+            })
+    }]);
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户后台管理</title>
+    <link rel="stylesheet" href="logInCss.css">
+    <script src="../Quote/js/jquery.js"></script>
+    <script src="../Quote/js/url.js"></script>
+    <style>
+        #userName ,#passWord ,#code {
+            font-size: 20px;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+<!--********************用户名登录界面***********************-->
+<div id="wrap_logInPage">
+    <div id="wrap_login">
+        <p id="management_p">用户后台管理</p>
+        <div id="wrap_login_loginBg">
+            <div id="wrap_login_loginLi">
+                <div id="tableLogin">
+                    <div class="div1">
+                        <span class="span1">用户名：</span>
+                        <span class="span2">
+                            <input type="text" id="userName">
+                        </span>
+                    </div>
+                    <div class="div1 div3">
+                        <span class="span1">密&nbsp;&nbsp;&nbsp; 码：</span>
+                        <span class="span2">
+                            <input type="text" id="passWord">
+                        </span>
+                    </div>
+                    <div class="div1">
+                        <span class="span1 span3">验证码：</span>
+                        <span class="span2 span3">
+                            <input type="text" id="code">
+                        </span>
+                        <span id="codeBg">
+                            <img src="" alt="">
+                        </span>
+                    </div>
+                    <div class="div1 div2">
+                        <span class="logIn_reset">登录</span>
+                        <span class="logIn_reset">重置</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--****************************权限选择界面--隐藏******************************-->
+    <div id="wrap_select">
+        <div id="tableSelect">
+            <span id="select_paly_span">角色1</span>
+            <select id="select_paly">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+            </select>
+        </div>
+        <div id="select_paly_logIn">
+            <span class="logIn_reset1">确认</span>
+            <span class="logIn_reset1">返回</span>
+        </div>
+    </div>
+</div>
+<!--*******************登录界面JS*******************-->
+<script>
+    $(function () {
+        var codeId = Math.random();
+        $.get(URL+"code?codeId="+codeId,function (res) {
+            $("#codeBg img").attr("src",URL+"code?codeId="+codeId);
+        });
+        var logIn_reset = document.getElementsByClassName("logIn_reset");
+        var wrap_login = document.getElementById("wrap_login");
+        var wrap_select = document.getElementById("wrap_select");
+        var userName = document.getElementById("userName");
+        var passWord = document.getElementById("passWord");
+        var code = document.getElementById("code");
+        logIn_reset[0].onclick = function () {
+            console.log(userName.value);
+            console.log(passWord.value);
+            console.log(code.value);
+//            codeId = Math.random();
+            alert("请求即将发送");
+            $.post(URL+"bg/login",{username: userName.value,pwd:passWord.value,code:code.value,codeId:codeId},function (res) {
+                console.log(res);
+                if (res.state == 0){
+                    sessionStorage.setItem("token",res.message);
+                    console.log(sessionStorage.token);
+                    wrap_login.style.display = "none";
+                    wrap_select.style.display = "block";
+                }else {
+                    alert(res.message);
+                    codeId = Math.random();
+                    $.get(URL+"code?codeId="+codeId,function (res) {
+                        $("#codeBg img").attr("src",URL+"code?codeId="+codeId);
+                    });
+                }
+            });
+        };
+        logIn_reset[1].onclick = function () {
+            userName.value = "";
+            passWord.value = "";
+            code.value = ""
+        };
+        $("#codeBg img").on("click",function () {
+            codeId = Math.random();
+            $.get(URL+"code?codeId="+codeId,function (res) {
+                $("#codeBg img").attr("src",URL+"code?codeId="+codeId);
+            });
+        });
+    })
+</script>
+<!--***********************角色选择*************************-->
+<script>
+    $("#select_paly").change(function () {
+        var oVale = $("#select_paly option:selected").text();
+        $("#select_paly_span").text(oVale);
+    });
+    var logIn_reset1 = $(".logIn_reset1");
+    var wrap_logInPage = document.getElementById("wrap_logInPage");
+    var Home = document.getElementById("Home");
+    var wrap_select = document.getElementById("wrap_select");
+    var wrap_login = document.getElementById("wrap_login");
+    logIn_reset1[0].onclick = function () {
+        window.location = "../HomePage/AddCustomer.html";
+    }
+    logIn_reset1[1].onclick = function () {
+        alert(12);
+        wrap_select.style.display = "none";
+        wrap_login.style.display = "block";
+    }
+</script>
+</body>
+</html>
